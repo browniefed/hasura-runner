@@ -1,0 +1,6 @@
+name: Hasura CLI Runner
+description: Provides a CLI for Hasura to run any arbitrary command with a specified CLI version
+author: Jason Brown
+runs:
+  using: docker
+  image: ./Dockerfile
