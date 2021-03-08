@@ -40,7 +40,12 @@ chmod +x /usr/local/bin/hasura || {
 }
 
 
-command="hasura $* --endpoint $HASURA_MIGRATIONS_ENABLED"
+if [ -z "$HASURA_ENDPOINT" ]; then
+    echo "HASURA_ENDPOINT is required to run commands with the hasura cli"
+    exit 126
+fi
+
+command="hasura $* --endpoint $HASURA_ENDPOINT"
 
 if [ -n "$HASURA_ADMIN_SECRET" ]; then
     command="$command --admin-secret $HASURA_ADMIN_SECRET"
@@ -49,7 +54,7 @@ fi
 # CD into Hasura project root directory, if given and not current directory
 if [ -n "$PATH_TO_HASURA_PROJECT_ROOT" ]; then
   debug "cd'ing to Hasura project root at $PATH_TO_HASURA_PROJECT_ROOT"
-  cd "$PATH_TO_HASURA_PROJECT_ROOT" || {
+  cd $PATH_TO_HASURA_PROJECT_ROOT || {
     error "Failed to cd into directory $PATH_TO_HASURA_PROJECT_ROOT"
     exit 1
   }
@@ -58,6 +63,6 @@ else
 fi
 
 # secrets can be printed, they are protected by Github Actions
-echo "Executing '$command' from '${HASURA_WORKDIR:-./}'"
+echo "Executing '$command' from '${PATH_TO_HASURA_PROJECT_ROOT:-./}'"
 
 sh -c "$command"
