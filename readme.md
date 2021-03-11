@@ -17,7 +17,55 @@ HASURA_ADMIN_SECRET:
   description: Optional overriding admin secret for the Hasura instance. Will default to config.yaml value (as the CLI is run from the directory containing config.yaml).
 ```
 
-## Example usage
+## Example for Hasura 2+
+
+```
+name: Production Deploy
+on:
+  push:
+    branches:
+      - master
+jobs:
+  hasura_migration:
+    name: Hasura migration and Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Hasura CI/CD
+        uses: browniefed/hasura-runner@master
+        with:
+          args: metadata apply
+        env:
+          PATH_TO_HASURA_PROJECT_ROOT: ./hasura
+          HASURA_CLI_VERSION: v2.0.0-alpha.4
+          HASURA_ENDPOINT: ${{ secrets.HASURA_ENDPOINT }}
+          HASURA_ADMIN_SECRET: ${{ secrets.HASURA_ADMIN_SECRET }}
+
+      - name: Hasura CI/CD
+        uses: browniefed/hasura-runner@master
+        with:
+          args: migrate apply --database-name default
+        env:
+          PATH_TO_HASURA_PROJECT_ROOT: ./hasura
+          HASURA_CLI_VERSION: v2.0.0-alpha.4
+          HASURA_ENDPOINT: ${{ secrets.HASURA_ENDPOINT }}
+          HASURA_ADMIN_SECRET: ${{ secrets.HASURA_ADMIN_SECRET }}
+
+      - name: Hasura CI/CD
+        uses: browniefed/hasura-runner@master
+        with:
+          args: metadata reload
+        env:
+          PATH_TO_HASURA_PROJECT_ROOT: ./hasura
+          HASURA_CLI_VERSION: v2.0.0-alpha.4
+          HASURA_ENDPOINT: ${{ secrets.HASURA_ENDPOINT }}
+          HASURA_ADMIN_SECRET: ${{ secrets.HASURA_ADMIN_SECRET }}
+
+```
+
+## Example Usage for v1.3.3
 
 ```yaml
 name: Hasura CI/CD
