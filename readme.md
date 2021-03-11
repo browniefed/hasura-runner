@@ -19,7 +19,7 @@ HASURA_ADMIN_SECRET:
 
 ## Example for Hasura 2+
 
-```
+```yaml
 name: Production Deploy
 on:
   push:
@@ -84,6 +84,15 @@ jobs:
         uses: browniefed/hasura-runner@master
         with:
           args: migrate apply
+        env:
+          PATH_TO_HASURA_PROJECT_ROOT: ./hasura
+          HASURA_CLI_VERSION: v2.0.0-alpha.2
+          HASURA_ENDPOINT: https://my-url.hasura.app
+          HASURA_ADMIN_SECRET: ${{ secrets.HASURA_ADMIN_SECRET }}
+       - name: Hasura CI/CD
+        uses: browniefed/hasura-runner@master
+        with:
+          args: metadata apply
         env:
           PATH_TO_HASURA_PROJECT_ROOT: ./hasura
           HASURA_CLI_VERSION: v2.0.0-alpha.2
