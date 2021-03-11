@@ -86,7 +86,7 @@ jobs:
           args: migrate apply
         env:
           PATH_TO_HASURA_PROJECT_ROOT: ./hasura
-          HASURA_CLI_VERSION: v2.0.0-alpha.2
+          HASURA_CLI_VERSION: v1.3.3
           HASURA_ENDPOINT: https://my-url.hasura.app
           HASURA_ADMIN_SECRET: ${{ secrets.HASURA_ADMIN_SECRET }}
        - name: Hasura CI/CD
