@@ -39,7 +39,7 @@ jobs:
           args: metadata apply
         env:
           PATH_TO_HASURA_PROJECT_ROOT: ./hasura
-          HASURA_CLI_VERSION: v2.0.0-alpha.10
+          HASURA_CLI_VERSION: v2.0.7
           HASURA_ENDPOINT: ${{ secrets.HASURA_ENDPOINT }}
           HASURA_ADMIN_SECRET: ${{ secrets.HASURA_ADMIN_SECRET }}
 
@@ -49,7 +49,7 @@ jobs:
           args: migrate apply --database-name default
         env:
           PATH_TO_HASURA_PROJECT_ROOT: ./hasura
-          HASURA_CLI_VERSION: v2.0.0-alpha.10
+          HASURA_CLI_VERSION: v2.0.7
           HASURA_ENDPOINT: ${{ secrets.HASURA_ENDPOINT }}
           HASURA_ADMIN_SECRET: ${{ secrets.HASURA_ADMIN_SECRET }}
 
@@ -59,7 +59,7 @@ jobs:
           args: metadata reload
         env:
           PATH_TO_HASURA_PROJECT_ROOT: ./hasura
-          HASURA_CLI_VERSION: v2.0.0-alpha.10
+          HASURA_CLI_VERSION: v2.0.7
           HASURA_ENDPOINT: ${{ secrets.HASURA_ENDPOINT }}
           HASURA_ADMIN_SECRET: ${{ secrets.HASURA_ADMIN_SECRET }}
 
